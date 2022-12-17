@@ -6,7 +6,7 @@ from apps.workspace.models import Workspace
 class Board(models.Model):
     title = models.CharField(max_length=200,null=False,blank=False)
     description = models.TextField(max_length=200,null=False,blank=False)
-    wokrspace = models.ForeignKey(Workspace,on_delete=models.CASCADE)
+    workspace = models.ForeignKey(Workspace,on_delete=models.CASCADE)
 
 class Column(models.Model):
     title = models.CharField(max_length=200,null=False,blank=False)

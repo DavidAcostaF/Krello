@@ -1,0 +1,24 @@
+
+.home{
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-right: 50px;
+
+}
+
+.first_list{
+    list-style: none;
+    
+
+}
+.collumn{
+}
+a{
+    font-size: 13px;
+}
+li{
+    margin-top: 3px;
+}

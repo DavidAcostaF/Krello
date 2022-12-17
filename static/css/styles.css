@@ -11,7 +11,7 @@ Flexbox is used as a fallback so that browsers which don't support grid will sti
 /* Base styles */
 
 :root {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 *,
@@ -24,7 +24,7 @@ body {
     font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    background-color: #0079bf;
+    background: #0079bf;
 }
 
 .btn {
@@ -325,7 +325,7 @@ Remove or comment-out the code block below to see how the browser will fall-back
 
 */
 
-@supports (display: grid) {
+/* @supports (display: grid) {
     body {
         display: grid;
         grid-template-rows: 4rem 3rem auto;
@@ -382,4 +382,4 @@ Remove or comment-out the code block below to see how the browser will fall-back
     .user-settings-btn {
         margin: 0;
     }
-}
+} */

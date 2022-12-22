@@ -52,7 +52,16 @@
 				</ul>
 				<button class="add-card-btn btn">Add a card</button>
 			</div>
-			<input class="add-list-btn btn" placeholder="Add a column" style="margin-left: 5px;">
+			
+			{% for column in columns %}
+			<div class="list">
+				<h3 class="list-title">{{column.title}}</h3>
+				<ul class="list-items">
+				</ul>
+				<button class="add-card-btn btn">Add a card</button>
+			</div>
+			{% endfor %}
+			<input class="add-list-btn btn" id="create-column" placeholder="Add a column" style="margin-left: 5px;" onsubmit="createColumn({{board.id}})">
 			{%block body%}
 
 			{%endblock body%}

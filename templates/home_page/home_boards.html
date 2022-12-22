@@ -26,8 +26,9 @@
                                 href="">Boards</a></button></li>
                     <li><button class="btn btn-light form-control btn-lg"><a
                                 href="">Templates</a></button></li>
-                    <li><button class="btn btn-light form-control btn-lg"><a
-                                href="{%url 'home'%}">Home</a></button></li>
+                    <li><a
+                            href="{%url 'home'%}"><button class="btn
+                                btn-light form-control btn-lg">Home</button></a></li>
                 </ul>
                 <ul class="lists_columns">
                     <hr width="90">
@@ -42,20 +43,28 @@
             <div class="collumn">
                 <h3>YOUR WORKSPACES</h3>
                 <div class="container">
-                    
-                    {% for workspace in  list_workspaces%}
+
+                    {% for workspace in workspaces%}
                     <div class="options">
                         <div class="options">LOGO</div>
-                        <h3 class="options title-options">Title</h3>
+                        <h3 class="options title-options">{{workspace.title}}</h3>
                         <div class="options board-options"><button class="btn">Board</button></div>
                         <div class="options views-options"><button class="btn">Views</button></div>
-                        <div class="options members-options"><button class="btn">Members</button></div>
-                        <div class="options settings-options"><button class="btn">Settings</button></div>
+                        <div class="options members-options"><button
+                                class="btn">Members</button></div>
+                        <div class="options settings-options"><button
+                                class="btn">Settings</button></div>
                     </div>
-                    <div class="workspaces_container">
-                        <div class="workspaces">
-                            <div class="workspaces_title">Title</div>
-                        </div>
+                    <div class="boards_container">
+                        {% for board in list_boards %}
+                        {% if board.workspace == workspace %}
+                        <a href="{%url 'board_view' id=board.id title=board.title%}">
+                        <div class="board">
+                            <div class="boards_title">{{board.title}}</div>
+                            {{board.uid}}
+                        </div></a>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                     {% endfor %}
                 </div>

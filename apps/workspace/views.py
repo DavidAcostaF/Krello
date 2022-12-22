@@ -12,14 +12,12 @@ class ListsWorkspaces(ListView):
     template_name = 'home_boards/home_boards.html'
 
     def get(self,request):
-        list_boards = []
+        # list_boards = []
         user = self.request.user
         workspaces = Workspace.objects.filter(created_by = user)
-        for workspace in workspaces:
-            list_boards.append(Board.objects.filter(workspace=workspace))
-        print(list_boards)
+        list_boards = Board.objects.filter(workspace__in=workspaces)
         context = {
             'workspaces':workspaces,
-            'list_workspaces':list_boards,
+            'list_boards':list_boards,
         }
         return render(request,'home_page/home_boards.html',context)

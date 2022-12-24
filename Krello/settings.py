@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'apps.board',
     'apps.workspace',
     'apps.users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

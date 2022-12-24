@@ -7,9 +7,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{%static 'css/styles.css'%}">
-
-		<link rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
 		<title>Document</title>
 	</head>
 	<body>
@@ -61,7 +60,9 @@
 				<button class="add-card-btn btn">Add a card</button>
 			</div>
 			{% endfor %}
-			<input class="add-list-btn btn" id="create-column" placeholder="Add a column" style="margin-left: 5px;" onsubmit="createColumn({{board.id}})">
+			<form id="form-column">{% csrf_token %}
+			<input type="text" id="create-column" onkeyup="createColumn({{board.id}})" class="add-list-btn btn" placeholder="Add a column" style="margin-left: 5px;" >
+			</form>
 			{%block body%}
 
 			{%endblock body%}

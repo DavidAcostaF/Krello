@@ -16,8 +16,8 @@ class Column(models.Model):
 
 class Card(models.Model):
     title = models.CharField(max_length=200,null=False,blank=False)
-    description = models.TextField(max_length=200,null=False,blank=False)
-    deadline_date = models.DateField()
+    description = models.TextField(max_length=200,null=True,blank=True)
+    deadline_date = models.DateField(blank=True,null=True)
     column = models.ForeignKey(Column,on_delete=models.CASCADE)
 
 class ImageCard(models.Model):

@@ -17,55 +17,38 @@
 
 		<!-- Board info bar -->
 		<section class="board-info-bar">
-
 			<div class="board-controls">
-
 				<button class="board-title btn">
 					<h2>Web Development</h2>
 				</button>
-
 				<button class="star-btn btn" aria-label="Star Board">
 					<i class="far fa-star" aria-hidden="true"></i>
 				</button>
-
 				<button class="personal-btn btn">Personal</button>
-
 				<button class="private-btn btn"><i class="fas fa-briefcase private-btn-icon"
 						aria-hidden="true"></i>Private</button>
-
 			</div>
-
 			<button class="menu-btn btn"><i class="fas fa-ellipsis-h menu-btn-icon"
 					aria-hidden="true"></i>Show Menu</button>
-
 		</section>
 		<!-- End of board info bar -->
 
 		<!-- Lists container -->
 		<section class="lists-container">
-			<div class="list">
-				<h3 class="list-title">Completed Tasks</h3>
-				<ul class="list-items">
-					<li>Clear email inbox</li>
-					<li>Finalise requirements for client web design</li>
-					<li>Begin work on mock-up for client website</li>
-				</ul>
-				<button class="add-card-btn btn">Add a card</button>
-			</div>
-
 			{% for column in columns %}
+			<!-- Arreglar las clases y los ids para el drag and drop -->
 			<div class="list">
 				<h3 class="list-title">{{column.title}}</h3>
-				<ul class="list-items">
+				<ul class="list-items" id="list-items_{{column.id}}" ondrop="dropIt(event,{{column.id}})" ondragover="allowDrop(event)">
 					{% for card in cards %}
-						{% if card.column == column %}
-							<li>{{card.title}}</li>	
-						{% endif %}
+					{% if card.column == column %}
+					<li ondragstart="dragStart(event,{{card.id}})" id="card_{{card.id}}" draggable="true">{{card.title}}</li>
+					{% endif %}
 					{% endfor %}
 				</ul>
-				<form id="form-card" onload="formCard()">{% csrf_token %}
-					<input type="text" id="create-card" onchange="createCard({{column.id}})"
-						class="add-card-btn btn form-control" placeholder="Add a card">
+				<form id="form-card" onsubmit="event.preventDefault()">{% csrf_token %}
+					<input type="text" id="card_{{column.id}}" onchange="createCard({{column.id}})"
+						class="add-card-btn btn form-control create-card" placeholder="Add a card">
 				</form>
 			</div>
 			{% endfor %}

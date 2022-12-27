@@ -35,3 +35,16 @@ class CreateCardApi(CreateAPIView):
             card.save()
             return Response({'title':card.id},status = 200)
         return Response(status = 200)
+
+
+class MoveCard(CreateAPIView):
+
+    def post(self, request,pk):
+        card = Card.objects.get(id=pk)
+        column_id = request.data.get('column_id')
+        column = Column.objects.get(id=column_id)
+        if card and column:
+            card.column = column
+            card.save()
+            return Response(status = 200)
+        return Response(status = 400)

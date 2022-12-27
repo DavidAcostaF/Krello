@@ -4,3 +4,4 @@ from apps.board import models
 
 admin.site.register(models.Board)
 admin.site.register(models.Column)
+admin.site.register(models.Card)

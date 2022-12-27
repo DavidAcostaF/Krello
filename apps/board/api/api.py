@@ -31,7 +31,7 @@ class CreateCardApi(CreateAPIView):
         title = request.data.get('title')
         column = Column.objects.get(id=pk)
         if column and title:
-            column = Card.objects.create(title=title,column=column)
-            column.save()
-            return Response({'card':column},status = 200)
+            card = Card.objects.create(title=title,column=column)
+            card.save()
+            return Response({'title':card.id},status = 200)
         return Response(status = 200)

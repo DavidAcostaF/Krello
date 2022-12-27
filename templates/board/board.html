@@ -58,10 +58,12 @@
 				<h3 class="list-title">{{column.title}}</h3>
 				<ul class="list-items">
 					{% for card in cards %}
-					<li>{{card.title}}</li>
+						{% if card.column == column %}
+							<li>{{card.title}}</li>	
+						{% endif %}
 					{% endfor %}
 				</ul>
-				<form id="form-card">{% csrf_token %}
+				<form id="form-card" onload="formCard()">{% csrf_token %}
 					<input type="text" id="create-card" onchange="createCard({{column.id}})"
 						class="add-card-btn btn form-control" placeholder="Add a card">
 				</form>
@@ -77,6 +79,6 @@
 			{%endblock body%}
 		</section>
 	</body>
-	<script src="{%static 'js/index.js'%}"></script>
+	<script src="{%static 'js/board.js'%}"></script>
 
 </html>

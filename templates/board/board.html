@@ -10,25 +10,33 @@
 		<link rel="stylesheet"
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
-		<title>Document</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+		<script src="https://unpkg.com/htmx.org@1.8.4"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+		<title>{{board.title}}</title>
 	</head>
-	<body>
+	<body class="body">
 		{% include 'header.html' %}
 
+		<div id="modal" class="modal fade" tabindex="-1">
+			<div id="dialog" class="modal-dialog modal-lg modal-dialog-scrollable" hx-target="this">
+
+			</div>
+		</div>
 		<!-- Board info bar -->
 		<section class="board-info-bar">
 			<div class="board-controls">
-				<button class="board-title btn">
+				<button class="board-title boton">
 					<h2>Web Development</h2>
 				</button>
-				<button class="star-btn btn" aria-label="Star Board">
+				<button class="star-btn boton" aria-label="Star Board">
 					<i class="far fa-star" aria-hidden="true"></i>
 				</button>
-				<button class="personal-btn btn">Personal</button>
-				<button class="private-btn btn"><i class="fas fa-briefcase private-btn-icon"
+				<button class="personal-btn boton">Personal</button>
+				<button class="private-btn boton"><i class="fas fa-briefcase private-btn-icon"
 						aria-hidden="true"></i>Private</button>
 			</div>
-			<button class="menu-btn btn"><i class="fas fa-ellipsis-h menu-btn-icon"
+			<button class="menu-btn boton"><i class="fas fa-ellipsis-h menu-btn-icon"
 					aria-hidden="true"></i>Show Menu</button>
 		</section>
 		<!-- End of board info bar -->
@@ -42,19 +50,19 @@
 				<ul class="list-items" id="list-items_{{column.id}}" ondrop="dropIt(event,{{column.id}})" ondragover="allowDrop(event)">
 					{% for card in cards %}
 					{% if card.column == column %}
-					<li ondragstart="dragStart(event,{{card.id}})" id="card_{{card.id}}" draggable="true">{{card.title}}</li>
+					<li ondragstart="dragStart(event,{{card.id}})" id="card_{{card.id}}" draggable="true" hx-get="{%url 'edit_card' card.id%}" hx-target="#dialog">{{card.title}}</li>
 					{% endif %}
 					{% endfor %}
 				</ul>
 				<form id="form-card" onsubmit="event.preventDefault()">{% csrf_token %}
 					<input type="text" id="card_{{column.id}}" onchange="createCard({{column.id}})"
-						class="add-card-btn btn form-control create-card" placeholder="Add a card">
+						class="add-card-btn boton create-card" placeholder="Add a card">
 				</form>
 			</div>
 			{% endfor %}
 			<form id="form-column">{% csrf_token %}
 				<input type="text" id="create-column" onchange="createColumn({{board.id}})"
-					class="add-list-btn btn" placeholder="Add a column" style="margin-left:
+					class="add-list-btn boton" placeholder="Add a column" style="margin-left:
 					5px;">
 			</form>
 			{%block body%}

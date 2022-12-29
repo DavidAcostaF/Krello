@@ -19,15 +19,20 @@ class BoardListView(ListView):
             context['board'] = board
             return render(request, self.template_name,context)
             
-# class CreateColums(CreateView):
-#     model = Column
 
-#     def post(self, request,id, *args, **kwargs):
-#         title = request.POST.get('title')
-#         print(title['title'])
-#         # board = request.POST.get('board')
-#         board = Board.objects.get(id=id)
-#         if board and title:
-#             column = Column.objects.create(title=title,board=board)
-#             column.save()
-#         return HttpResponse(status = 200)
+class EditCard(DetailView):
+    model = Card
+    #fields = ['title','description']
+    template_name = 'board/edit_card_modal.html'
+
+    # def get(self, request,id, *args, **kwargs,):
+    #     card = self.get_object()
+    #     context = {
+    #         'card':card
+    #     }
+    #     return render(request, self.template_name,context)
+
+    # def get_queryset(self):
+    #     query = super().get_queryset()
+    #     query = query.filter(id=self.kwargs['id'])
+    #     return query 

@@ -1,17 +1,28 @@
+;(function(){
+    const modal = new bootstrap.Modal(document.getElementById('modal'))
+
+    htmx.on('htmx:afterSwap',(e)=>{
+        if (e.detail.target.id === "dialog")
+        modal.show()
+    })
+    
+    htmx.on('htmx:beforeSwap',(e)=>{
+        if (e.detail.target.id === "dialog" && !e.detail.xhr.response)
+        modal.hide()
+    })
+})()
+
 formColumn = document.querySelector('#form-column')
 formColumn.addEventListener('submit', function (event) {
     event.preventDefault()
 })
 
+
+
 function formCard(event){
     event.preventDefault()
 }
-// formCard = document.querySelectorAll('#form-card')
-// if (formCard != null) {
-//     formCard.addEventListener('submit', function (event) {
-//         event.preventDefault()
-//     })
-// }
+
 
 async function doFetchToAPI(url, body) {
     csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value

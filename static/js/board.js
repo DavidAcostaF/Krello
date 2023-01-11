@@ -17,7 +17,22 @@ formColumn.addEventListener('submit', function (event) {
     event.preventDefault()
 })
 
-
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+const csrftoken = getCookie('csrftoken');
 
 function formCard(event){
     event.preventDefault()
@@ -25,7 +40,6 @@ function formCard(event){
 
 
 async function doFetchToAPI(url, body) {
-    csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
     if (body.title != "") {
         const response = await fetch(url, {
             method: 'POST',
@@ -58,7 +72,6 @@ function createCard(id) {
     url = `/api/create-card/${id}`
     input = document.querySelector(`#create-card_${id}`)
     // title = input.value
-    csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
     input.addEventListener('keyup', async function (e) {
         if (e.keyCode == 13 && this.value != "") {
             body = JSON.stringify({ 'title': this.value, 'column_id': id })
@@ -136,7 +149,6 @@ function dropIt(ev,column_id) {
 }
 
 async function moveCardFetch(url,json){
-    csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
     const response = await fetch(url, {
         method: 'POST',
         body: json,
@@ -145,5 +157,53 @@ async function moveCardFetch(url,json){
             'Content-Type': 'application/json'
         },
     })
-
 }
+
+
+async function saveDescriptionCard(card_id){
+    let url = `/api/save-description-card/${card_id}`
+    let description = document.querySelector(`#description_${card_id}`)
+    let body = JSON.stringify({ 'description': description.value })
+    if(description.value != ""){
+        const response = await fetch(url, {
+            method: 'POST',
+            body: body,
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+                },
+            })
+    }
+    //const data = await response.json()
+}
+
+
+async function saveCommentCard(card_id){
+    let url = `/api/save-comment-card/${card_id}`
+    let activity = document.querySelector(`#comment_${card_id}`)
+    let body = JSON.stringify({ 'comment': activity.value })
+    if(activity.value != ""){
+        const response = await fetch(url, {
+            method: 'PATCH',
+            body: body,
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+                },
+            })
+    }
+    //const data = await response.json()
+}
+
+// function activateInput(event,element){
+//     event.target.rows = 5
+//     let button = document.querySelector(`#${element}`)
+//     button.style.visibility = "visible"
+
+// }
+
+// function deactivateInput(event,element){
+//     event.target.rows = 3
+//     let button = document.querySelector(`#${element}`)
+//     button.style.visibility = "hidden"
+// }

@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
 from django.http import HttpResponse
-from .serializers import ColumnSerializer
+from .serializers import ColumnSerializer,SaveDescriptionSerializer
 from apps.board.models import Board,Column,Card
 
 
@@ -46,5 +46,24 @@ class MoveCard(CreateAPIView):
         if card and column:
             card.column = column
             card.save()
+            return Response(status = 200)
+        return Response(status = 400)
+
+class SaveDecriptionCard(CreateAPIView):
+    model = Card
+    serializer_class = SaveDescriptionSerializer
+
+    def post(self, request,pk):
+        card = Card.objects.get(id=pk)
+        description = request.data.get('description')
+        data = {
+            'card':card,
+            'description':description
+            }
+        serializer = SaveDescriptionSerializer(data=data)
+        if serializer.is_valid():
+            card.description = serializer.validated_data['description']
+            card.save()
+            print(card.description)
             return Response(status = 200)
         return Response(status = 400)

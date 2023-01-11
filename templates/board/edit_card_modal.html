@@ -1,4 +1,4 @@
- <div action="{{request.path}}" method="post" class="modal-content">
+<div action="{{request.path}}" method="post" class="modal-content">
     <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">{{object.title}}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal"
@@ -11,22 +11,28 @@
                     <div class="">
                         <h3 class="d-inline"><i class="fa-solid fa-bars-staggered "></i></h3>
                         <h3 class="d-inline ms-2">Description</h3>
-                        
-                            <textarea name="description" id="" value="{% if object.description != none %}
-                            {{object.description}}
-                            {% endif %}"
-                                rows="3" class="form-control ">
-                            </textarea>
+                        <div>
+                            <textarea name="description" id="description_{{object.id}}" onfocus="event.target.rows = 5" onblur="event.target.rows = 3,saveDescriptionCard({{object.id}})"
+                                rows="3" class="form-control ">{% if object.description != null %}{{object.description}}{% endif %}</textarea>
+                            <!-- <button type="button" class="btn btn-primary" id="save_button_{{object.id}}" onclick="saveDescriptionCard({{object.id}})" style="visibility: hidden;">Save</button> -->
+                        </div>
+
                     </div>
                     <h3 class="d-inline mt-2"><i class="fa-solid fa-bars-staggered "></i></h3>
                     <h3 class="d-inline ms-2">Activity</h3>
 
                     <div class="member mt-2">
                         <img src="" alt="" class="member-img">
-                        <!-- <form action="" class="form-member"> -->
-                            <input type="text"
-                                class="form-control">
-                            <!-- </form> -->
+                            <div>
+                                <textarea type="text" class="form-control"></textarea>
+                                <div id="upload_options_{{object.id}}">
+                                    <!-- <button type="button" class="btn btn-primary">Save</button> -->
+                                <span class="btn btn-primary btn-file">
+                                    Browse...<input type="file">
+                                </span>
+                                </div>
+                            
+                            </div>
                     </div>
                 </div>
                 <div class="col-3">123</div>

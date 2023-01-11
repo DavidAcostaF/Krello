@@ -35,3 +35,4 @@ class TagCard(models.Model):
 class Comment(models.Model):
     comment = models.CharField(max_length=100)
     image = models.ImageField(upload_to='media/comment')
+    card = models.ForeignKey(Card,on_delete=models.CASCADE)

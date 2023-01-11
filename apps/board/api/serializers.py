@@ -13,3 +13,11 @@ class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
         fields = ('title','column')
+
+class SaveDescriptionSerializer(serializers.Serializer):
+    card = serializers.DjangoModelField()
+    description = serializers.CharField()
+
+class SaveDescriptionSerializer(serializers.Serializer):
+    card = serializers.DjangoModelField()
+    description = serializers.CharField()

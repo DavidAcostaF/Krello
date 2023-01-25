@@ -203,7 +203,7 @@ body {
 /* Lists */
 
 .lists-container::-webkit-scrollbar {
-    height: 2.4rem;
+    height: 1rem;
 }
 
 .lists-container::-webkit-scrollbar-thumb {
@@ -236,9 +236,12 @@ body {
 
 .list-title {
     font-size: 1.4rem;
-    font-weight: 700;
+    font-weight: 900;
     color: #333;
-    padding: 1rem;
+    padding: 4px 0 0 4px;
+    background: none;
+    border: none;
+    height: 200;
 }
 
 .list-items {

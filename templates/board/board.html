@@ -29,8 +29,8 @@
 				<button class="board-title boton">
 					<h2>Web Development</h2>
 				</button>
-				<button class="star-btn boton" aria-label="Star Board">
-					<i class="far fa-star" aria-hidden="true"></i>
+				<button class="star-btn boton" aria-label="Star Board" onclick="addBoardToFavorite({{board.id}})">
+					<i class="far fa-star {%if board.favorite == 1%}fa-solid{%endif%}" aria-hidden="true" id="star-{{board.id}}"></i>
 				</button>
 				<button class="personal-btn boton">Personal</button>
 				<button class="private-btn boton"><i class="fas fa-briefcase private-btn-icon"
@@ -46,7 +46,10 @@
 			{% for column in columns %}
 			<!-- Arreglar las clases y los ids para el drag and drop -->
 			<div class="list">
-				<h3 class="list-title">{{column.title}}</h3>
+				<div class="list-title">
+					<textarea  name="" id="" style="resize: none;height: 40px;">{{column.title}}</textarea>
+					<i class="fa-solid fa-ellipsis"></i>
+				</div>
 				<ul class="list-items" id="list-items_{{column.id}}" ondrop="dropIt(event,{{column.id}})" ondragover="allowDrop(event)">
 					{% for card in cards %}
 					{% if card.column == column %}
@@ -55,7 +58,7 @@
 					{% endfor %}
 				</ul>
 				<form id="form-card" onsubmit="event.preventDefault()">{% csrf_token %}
-					<input type="text" id="card_{{column.id}}" onchange="createCard({{column.id}})"
+					<input type="text" id="create-card_{{column.id}}" onchange="createCard({{column.id}})"
 						class="add-card-btn boton create-card" placeholder="Add a card">
 				</form>
 			</div>

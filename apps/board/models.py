@@ -9,6 +9,7 @@ class Board(models.Model):
     description = models.TextField(max_length=200,null=False,blank=False)
     workspace = models.ForeignKey(Workspace,on_delete=models.CASCADE)
     uid = models.CharField(default = str(uuid.uuid4())[:8],max_length=8,blank=True,null=True)
+    favorite = models.BooleanField(default=False)
 
 class Column(models.Model):
     title = models.CharField(max_length=200,null=False,blank=False)

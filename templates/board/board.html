@@ -27,7 +27,7 @@
 		<section class="board-info-bar">
 			<div class="board-controls">
 				<button class="board-title boton">
-					<h2>Web Development</h2>
+					<h2>{{board.title}}</h2>
 				</button>
 				<button class="star-btn boton" aria-label="Star Board" onclick="addBoardToFavorite({{board.id}})">
 					<i class="far fa-star {%if board.favorite == 1%}fa-solid{%endif%}" aria-hidden="true" id="star-{{board.id}}"></i>
@@ -47,8 +47,10 @@
 			<!-- Arreglar las clases y los ids para el drag and drop -->
 			<div class="list">
 				<div class="list-title">
-					<textarea  name="" id="" style="resize: none;height: 40px;">{{column.title}}</textarea>
-					<i class="fa-solid fa-ellipsis"></i>
+					<div class="input-group" style="padding-bottom:10px;">
+						<input  name="" id="" class="form-control" style="resize: none;height: 40px;background:none;" value="{{column.title}}" onblur="event.target.style.background = 'none';" onfocus="event.target.style.background = '#fff';">
+						<span class="input-group-text" style="background:none;float:right;display:flex"><i class="fa-solid fa-ellipsis"></i></span>
+					</div>
 				</div>
 				<ul class="list-items" id="list-items_{{column.id}}" ondrop="dropIt(event,{{column.id}})" ondragover="allowDrop(event)">
 					{% for card in cards %}

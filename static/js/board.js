@@ -50,20 +50,29 @@ async function doFetchToAPI(url, body) {
             },
         })
         const data = await response.json()
-        console.log(data)
+        return data
     }
 }
 
 function createColumn(id) {
     let url = `/api/create-column/${id}`
     const input = document.querySelector('#create-column')
+    const listContainer = document.querySelector('#lists-container')
     //title = input.value
-    csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
     input.addEventListener('keyup', function (e) {
         if (e.keyCode == 13 && this.value != "") {
             body = JSON.stringify({ 'title': this.value, 'board_id': id })
-            doFetchToAPI(url, body)
+            const response = doFetchToAPI(url, body)
             this.value = "";
+            listContainer.innerHTML =+ `div class="list">
+            <h3 class="list-title">${response.title}</h3>
+            <ul class="list-items" id="list-items_${response.id}" ondrop="dropIt(event,${response.id})" ondragover="allowDrop(event)">
+            </ul>
+            <form id="form-card" onsubmit="event.preventDefault()">
+                <input type="text" id="create-card_${response.id}" onchange="createCard(${response.id})"
+                    class="add-card-btn boton create-card" placeholder="Add a card">
+            </form>
+        </div>`;
         }
     })
 }
@@ -71,7 +80,7 @@ function createColumn(id) {
 function createCard(id) {
     url = `/api/create-card/${id}`
     input = document.querySelector(`#create-card_${id}`)
-    // title = input.value
+    console.log(input)
     input.addEventListener('keyup', async function (e) {
         if (e.keyCode == 13 && this.value != "") {
             body = JSON.stringify({ 'title': this.value, 'column_id': id })
@@ -195,15 +204,20 @@ async function saveCommentCard(card_id){
     //const data = await response.json()
 }
 
-// function activateInput(event,element){
-//     event.target.rows = 5
-//     let button = document.querySelector(`#${element}`)
-//     button.style.visibility = "visible"
-
-// }
-
-// function deactivateInput(event,element){
-//     event.target.rows = 3
-//     let button = document.querySelector(`#${element}`)
-//     button.style.visibility = "hidden"
-// }
+async function addBoardToFavorite(board_id){
+    let url = `/api/add-board-to-favorite/${board_id}`
+    let input = document.querySelector(`#star-${board_id}`)
+    console.log(input)
+    await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'X-CSRFToken': csrftoken,
+            'Content-Type': 'application/json'
+            },
+        })
+        if(input.classList.contains('fa-solid')){
+            input.classList.remove('fa-solid')
+        }else{
+            input.classList.add('fa-solid')
+        }
+}

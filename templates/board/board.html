@@ -48,7 +48,7 @@
 			<div class="list">
 				<div class="list-title">
 					<div class="input-group" style="padding-bottom:10px;">
-						<input  name="" id="" class="form-control" style="resize: none;height: 40px;background:none;" value="{{column.title}}" onblur="deactivateInput(event)" onfocus="activateInput(event)">
+						<input  name="" id="" class="form-control" style="resize: none;height: 40px;background:none;" value="{{column.title}}" onblur="deactivateInput(event),editColumnTitle(event,{{column.id}})" onfocus="activateInput(event)">
 						<span class="input-group-text" style="background:none;float:right;display:flex"><i class="fa-solid fa-ellipsis"></i></span>
 					</div>
 				</div>

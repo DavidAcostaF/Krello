@@ -40,7 +40,6 @@ function formCard(event){
 
 
 async function doFetchToAPI(url, body) {
-    if (body.title != "") {
         const response = await fetch(url, {
             method: 'POST',
             body: body,
@@ -51,7 +50,6 @@ async function doFetchToAPI(url, body) {
         })
         const data = await response.json()
         return data
-    }
 }
 
 function createColumn(id) {
@@ -228,4 +226,21 @@ function activateInput(event){
 
 function deactivateInput(event){
     event.target.style.background = 'none'
+}
+
+
+function editColumnTitle(event,column_id){
+    let url = `/api/edit-column-title/${column_id}`
+    let title = event.target.value;
+    let body = JSON.stringify({ 'title': title })
+    if(body.title != ""){
+        fetch(url, {
+            method: 'put',
+            body: body,
+            headers: {
+                'X-CSRFToken': csrftoken,
+                'Content-Type': 'application/json'
+                },
+            })
+    }
 }

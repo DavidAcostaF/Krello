@@ -221,3 +221,11 @@ async function addBoardToFavorite(board_id){
             input.classList.add('fa-solid')
         }
 }
+
+function activateInput(event){
+    event.target.style.background = '#fff';
+}
+
+function deactivateInput(event){
+    event.target.style.background = 'none'
+}

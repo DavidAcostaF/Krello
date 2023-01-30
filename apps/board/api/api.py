@@ -81,9 +81,22 @@ class addBoardToFavorite(UpdateAPIView):
     def put(self, request, pk):
         board = Board.objects.get(id=pk)
         print(board.favorite)
-        if board.favorite != True:
-            board.favorite = True
-        else:
-            board.favorite = False
+        # if board.favorite != True:
+        #     board.favorite = True
+        # else:
+        #     board.favorite = False
+        board.favorite = not board.favorite
         board.save()
         return Response(status=200)
+
+
+class EditTitleColumn(UpdateAPIView):
+    model = Column
+    def put(self, request, pk):
+        column = Column.objects.get(id=pk)
+        title = request.data.get('title')
+        if column and title:
+            column.title = title
+            column.save()
+            return Response(status=200)
+        return Response(status=400)

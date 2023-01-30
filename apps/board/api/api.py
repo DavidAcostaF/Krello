@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView,UpdateAPIView
 from django.http import HttpResponse
-from .serializers import ColumnSerializer, SaveDescriptionSerializer
+from .serializers import ColumnSerializer, SaveDescriptionSerializer,editColumnTitleSerializer
 from apps.board.models import Board, Column, Card
 
 
@@ -80,20 +80,18 @@ class addBoardToFavorite(UpdateAPIView):
     model = Board
     def put(self, request, pk):
         board = Board.objects.get(id=pk)
-        print(board.favorite)
-        # if board.favorite != True:
-        #     board.favorite = True
-        # else:
-        #     board.favorite = False
         board.favorite = not board.favorite
         board.save()
         return Response(status=200)
 
 
-class EditTitleColumn(UpdateAPIView):
+class EditColumnTitle(UpdateAPIView):
     model = Column
+    serializer_class = editColumnTitleSerializer
     def put(self, request, pk):
+        print("asdas")
         column = Column.objects.get(id=pk)
+        print(column)
         title = request.data.get('title')
         if column and title:
             column.title = title

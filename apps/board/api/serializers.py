@@ -21,3 +21,6 @@ class SaveDescriptionSerializer(serializers.Serializer):
 class SaveDescriptionSerializer(serializers.Serializer):
     card = serializers.DjangoModelField()
     description = serializers.CharField()
+
+class editColumnTitleSerializer(serializers.Serializer):
+    title = serializers.CharField()
